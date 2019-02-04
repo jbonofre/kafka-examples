@@ -60,8 +60,6 @@ public class Main {
                     }
                     countDownLatch.countDown();
                 });
-                long elapsedTime = System.currentTimeMillis() - time;
-                System.out.printf("sent record(key=%s value=%s) meta(partition=%d offset=%d) time=%d\n", record.key(), record.value(), metadata.partition(), metadata.offset(), elapsedTime);
             }
             countDownLatch.await(25, TimeUnit.SECONDS);
         } finally {
@@ -82,5 +80,6 @@ public class Main {
                 runProducerASync(Integer.parseInt(args[0]));
             }
         }
+    }
 
 }
