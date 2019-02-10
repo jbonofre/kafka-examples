@@ -25,6 +25,20 @@ public class Main {
         properties.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        // the batch.size in bytes of record size, 0 to disable batching
+        properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 32768);
+
+        // linger how much to wait for other records before sending the batch over the network
+        properties.put(ProducerConfig.LINGER_MS_CONFIG, 20);
+
+        // the total bytes of memory the producer can use to buffer records waiting to be sent to the Kafka broker.
+        // If records are sent faster than broker can handle then the producer blocks. Used for compression and in-flight records.
+        properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 67108864);
+
+        // control how much time Producer blocks before throwing BufferExhaustedException
+        properties.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 1000);
+
         return new KafkaProducer<Long, String>(properties);
     }
 
